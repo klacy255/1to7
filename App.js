@@ -1,23 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import MapView from 'react-native-maps';
+import { Scene, Router, Actions } from 'react-native-router-flux';  //Define all  routes in one React component
 
-export default class App extends React.Component {
+
+import axios from 'axios'; //Promise based HTTP client
+
+//Components
+import MapScreen from './src/components/mapScreen.js';
+import SubmissionScreen from './src/components/submissionScreen.js';
+import RecycleLocationScreen from './src/components/recycleLocationScreen.js';
+
+
+export default class App extends Component {
+  constructor() {
+    super();
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <Router>
+       <Scene key="root">
+         <Scene
+           key="map"
+           component={MapScreen}
+           initial
+           hideNavBar={true}
+
+         />
+         <Scene
+           key="recycle"
+           component={RecycleLocationScreen}
+           hideNavBar={true}
+
+         />
+         <Scene
+           key="submission"
+           component={SubmissionScreen}
+           hideNavBar={true}
+
+         />
+       </Scene>
+     </Router>
     );
   }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+};
